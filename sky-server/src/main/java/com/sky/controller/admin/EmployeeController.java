@@ -14,6 +14,7 @@ import com.sky.vo.EmployeeLoginVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.util.Internal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -89,6 +90,21 @@ public class EmployeeController {
         log.info("员工分页查询，参数为：{}",employeePageQueryDTO);
         PageResult pageResult = employeeService.pageQuery(employeePageQueryDTO);
         return Result.success(pageResult);
+    }
+    /**
+     *
+     * @Author TanYingHao
+     * @Description 启用禁用员工账号
+     * @Date 23:39 2023/8/25
+     * @Param [status, id]
+     * @return com.sky.result.Result
+     **/
+    @PostMapping("/status/{status}")
+    @ApiOperation("启用禁用员工账号")
+    public Result startOrStop(@PathVariable("status") Integer status, Long id){
+        log.info("启用禁用员工账号:{}，{}",status,id);
+        employeeService.startOrStop(status,id);
+        return Result.success();
     }
 
 }

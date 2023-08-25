@@ -98,6 +98,22 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         return new PageResult(page.getTotal(),page.getResult());
     }
+    /**
+     *
+     * @Author TanYingHao
+     * @Description 启用或禁用员工
+     * @Date 23:40 2023/8/25
+     * @Param [status, id]
+     * @return void
+     **/
+    @Override
+    public void startOrStop(Integer status, Long id) {
+        Employee employee = Employee.builder()
+                .status(status)
+                .id(id)
+                .build();
+        employeeMapper.update(employee);
+    }
 
 
 }
