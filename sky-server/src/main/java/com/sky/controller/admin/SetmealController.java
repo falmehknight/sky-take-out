@@ -30,7 +30,7 @@ public class SetmealController {
     /**
      *
      * @Author TanYingHao
-     * @Description 新增套餐
+     * @Description 新增套餐,注意id回写
      * @Date 19:25 2023/8/27
      * @Param [setmealDTO]
      * @return com.sky.result.Result
@@ -58,6 +58,14 @@ public class SetmealController {
         return Result.success(pageResult);
     }
 
+    /**
+     *
+     * @Author TanYingHao
+     * @Description 根据id查询套餐
+     * @Date 22:33 2023/8/27
+     * @Param [id]
+     * @return com.sky.result.Result<com.sky.vo.SetmealVO>
+     **/
     @GetMapping("/{id}")
     @ApiOperation("根据id查询套餐")
     public Result<SetmealVO> getById(@PathVariable Long id) {
@@ -65,6 +73,23 @@ public class SetmealController {
         SetmealVO setmealVO = setmealService.getById(id);
         return Result.success(setmealVO);
     }
+    /**
+     *
+     * @Author TanYingHao
+     * @Description 修改套餐
+     * @Date 22:55 2023/8/27
+     * @Param [setmealDTO]
+     * @return com.sky.result.Result
+     **/
+    @PutMapping
+    @ApiOperation("修改套餐")
+    public Result update(@RequestBody SetmealDTO setmealDTO){
+        setmealService.update(setmealDTO);
+        return Result.success();
+    }
+
+
+
 
 
 

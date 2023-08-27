@@ -1,6 +1,7 @@
 package com.sky.mapper;
 
 import com.sky.entity.SetmealDish;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -34,4 +35,23 @@ public interface SetmealDishMapper {
      **/
     @Select("select * from setmeal_dish where setmeal_id = #{setmealId}")
     List<SetmealDish> getBySetmealId(Long setmealId);
+    /**
+     *
+     * @Author TanYingHao
+     * @Description 更新套餐详细信息
+     * @Date 22:50 2023/8/27
+     * @Param [setmealDish]
+     * @return void
+     **/
+    void update(SetmealDish setmealDish);
+    /**
+     *
+     * @Author TanYingHao
+     * @Description 根据套餐id删除套餐内的餐品
+     * @Date 23:44 2023/8/27
+     * @Param [setmealId]
+     * @return void
+     **/
+    @Delete("delete from setmeal_dish where setmeal_id = #{setmealId}")
+    void deleteBySetmealId(Long setmealId);
 }

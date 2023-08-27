@@ -44,4 +44,15 @@ public interface SetmealMapper {
      **/
     @Select("select * from setmeal where id = #{id}")
     Setmeal getById(Long id);
+
+    /**
+     *
+     * @Author TanYingHao
+     * @Description 更新套餐
+     * @Date 22:39 2023/8/27
+     * @Param [setmeal]
+     * @return void
+     **/
+    @AutoFill(OperationType.UPDATE)
+    void update(Setmeal setmeal);
 }

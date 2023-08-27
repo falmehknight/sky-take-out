@@ -34,4 +34,13 @@ public interface SetmealService {
      * @return com.sky.vo.SetmealVO
      **/
     SetmealVO getById(Long id);
+    /**
+     *
+     * @Author TanYingHao
+     * @Description 修改套餐
+     * @Date 22:37 2023/8/27
+     * @Param [setmealDTO]
+     * @return void
+     **/
+    void update(SetmealDTO setmealDTO);
 }
