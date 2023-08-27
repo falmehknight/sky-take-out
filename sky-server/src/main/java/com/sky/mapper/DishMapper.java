@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
 @Mapper
 public interface DishMapper {
@@ -32,11 +33,46 @@ public interface DishMapper {
     @AutoFill(value = OperationType.INSERT)
     void insert(Dish dish);
 
+    /**
+     *
+     * @Author TanYingHao
+     * @Description 分页查询菜品
+     * @Date 9:57 2023/8/27
+     * @Param [dishPageQueryDTO]
+     * @return com.github.pagehelper.Page<com.sky.vo.DishVO>
+     **/
     Page<DishVO> pageQuery(DishPageQueryDTO dishPageQueryDTO);
 
+    /**
+     *
+     * @Author TanYingHao
+     * @Description 根据id查询菜品
+     * @Date 9:57 2023/8/27
+     * @Param [id]
+     * @return com.sky.entity.Dish
+     **/
     @Select("select * from dish where id = #{id}")
     Dish getById(Long id);
 
+    /**
+     *
+     * @Author TanYingHao
+     * @Description 根据id删除菜品
+     * @Date 9:56 2023/8/27
+     * @Param [id]
+     * @return void
+     **/
     @Delete("delete from dish where id = #{id}")
     void deleteById(Long id);
+
+    /**
+     *
+     * @Author TanYingHao
+     * @Description 更新菜品信息
+     * @Date 9:56 2023/8/27
+     * @Param [dish]
+     * @return void
+     **/
+    @AutoFill(value = OperationType.UPDATE)
+    void update(Dish dish);
 }
