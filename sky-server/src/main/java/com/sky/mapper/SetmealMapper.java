@@ -24,16 +24,24 @@ public interface SetmealMapper {
     /**
      *
      * @Author TanYingHao
-     * @Description 新增套餐
+     * @Description 新增套餐,这里要回传id，排错排了好久
      * @Date 17:27 2023/8/27
      * @Param [setmeal]
      * @return void
      **/
     @AutoFill(OperationType.INSERT)
-    @Insert("insert into setmeal (category_id, name, price, description, image, create_time, update_time, " +
-            "create_user, update_user) VALUES (#{categoryId}, #{name}, #{price}, #{description}, #{image}, " +
-            "#{createTime}, #{updateTime}, #{createUser}, #{updateUser})")
     void save(Setmeal setmeal);
 
     Page<SetmealVO> pageQuery(SetmealPageQueryDTO setmealPageQueryDTO);
+
+    /**
+     *
+     * @Author TanYingHao
+     * @Description 根据id查询套餐
+     * @Date 19:59 2023/8/27
+     * @Param [id]
+     * @return com.sky.entity.Setmeal
+     **/
+    @Select("select * from setmeal where id = #{id}")
+    Setmeal getById(Long id);
 }

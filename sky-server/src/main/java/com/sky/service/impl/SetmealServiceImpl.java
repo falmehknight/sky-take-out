@@ -12,6 +12,7 @@ import com.sky.mapper.SetmealMapper;
 import com.sky.result.PageResult;
 import com.sky.service.SetmealService;
 import com.sky.vo.SetmealVO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -28,6 +29,7 @@ import java.util.List;
  * @Version 1.0
  **/
 @Service
+@Slf4j
 public class SetmealServiceImpl implements SetmealService {
 
     @Autowired
@@ -40,21 +42,25 @@ public class SetmealServiceImpl implements SetmealService {
 
     @Override
     @Transactional
-    public void save(SetmealDTO setmealDTO) {
+    public void saveWithDish(SetmealDTO setmealDTO) {
         // 首先先把套餐信息加入
         Setmeal setmeal = new Setmeal();
         BeanUtils.copyProperties(setmealDTO,setmeal);
         setmealMapper.save(setmeal);
 
         //再把另一个套餐详细表填入
-        SetmealDish setmealDish = new SetmealDish();
+        Long setmealId = setmeal.getId();
+        log.info("-----要增加的id是-----{}",setmealId);
         List<SetmealDish> setmealDishes = setmealDTO.getSetmealDishes();
+        if(setmealDishes.isEmpty()) return ;
         for (SetmealDish dish : setmealDishes) {
+            dish.setSetmealId(setmealId);
             setmealDishMapper.save(dish);
         }
     }
 
     @Override
+    @Transactional
     public PageResult pageQuery(SetmealPageQueryDTO setmealPageQueryDTO) {
         PageHelper.startPage(setmealPageQueryDTO.getPage(), setmealPageQueryDTO.getPageSize());
 
@@ -64,6 +70,19 @@ public class SetmealServiceImpl implements SetmealService {
             setmeal.setCategoryName(nameById);
         }
         return new PageResult(page.getTotal(), page.getResult());
+
+    }
+
+    @Override
+    @Transactional
+    public SetmealVO getById(Long id) {
+        Setmeal setmeal = setmealMapper.getById(id);
+        SetmealVO setmealVO = new SetmealVO();
+        BeanUtils.copyProperties(setmeal,setmealVO);
+
+        List<SetmealDish> setmealDishes = setmealDishMapper.getBySetmealId(id);
+        setmealVO.setSetmealDishes(setmealDishes);
+        return setmealVO;
 
     }
 }

@@ -3,6 +3,7 @@ package com.sky.service;
 import com.sky.dto.SetmealDTO;
 import com.sky.dto.SetmealPageQueryDTO;
 import com.sky.result.PageResult;
+import com.sky.vo.SetmealVO;
 
 public interface SetmealService {
     /**
@@ -13,7 +14,7 @@ public interface SetmealService {
      * @Param [setmealDTO]
      * @return void
      **/
-    void save(SetmealDTO setmealDTO);
+    void saveWithDish(SetmealDTO setmealDTO);
     /**
      *
      * @Author TanYingHao
@@ -23,4 +24,14 @@ public interface SetmealService {
      * @return com.sky.result.PageResult
      **/
     PageResult pageQuery(SetmealPageQueryDTO setmealPageQueryDTO);
+
+    /**
+     *
+     * @Author TanYingHao
+     * @Description 根据id查询套餐
+     * @Date 19:56 2023/8/27
+     * @Param [id]
+     * @return com.sky.vo.SetmealVO
+     **/
+    SetmealVO getById(Long id);
 }
