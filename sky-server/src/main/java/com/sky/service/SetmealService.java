@@ -5,6 +5,8 @@ import com.sky.dto.SetmealPageQueryDTO;
 import com.sky.result.PageResult;
 import com.sky.vo.SetmealVO;
 
+import java.util.List;
+
 public interface SetmealService {
     /**
      *
@@ -43,4 +45,22 @@ public interface SetmealService {
      * @return void
      **/
     void update(SetmealDTO setmealDTO);
+    /**
+     *
+     * @Author TanYingHao
+     * @Description 根据传入的id数组去批量删除套餐
+     * @Date 23:50 2023/8/27
+     * @Param [ids]
+     * @return void
+     **/
+    void deleteByIds(List<Long> ids);
+    /**
+     *
+     * @Author TanYingHao
+     * @Description 修改套餐停售或在售
+     * @Date 0:01 2023/8/28
+     * @Param [status, id]
+     * @return void
+     **/
+    void updateSetmealStatus(Integer status, Long id);
 }

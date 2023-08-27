@@ -12,6 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * @ClassName SetmealController
  * @Description 套餐相关接口
@@ -87,6 +89,30 @@ public class SetmealController {
         setmealService.update(setmealDTO);
         return Result.success();
     }
+
+    /**
+     *
+     * @Author TanYingHao
+     * @Description 根据id批量删除套餐
+     * @Date 23:48 2023/8/27
+     * @Param []
+     * @return com.sky.result.Result
+     **/
+    @DeleteMapping
+    @ApiOperation("批量删除套餐")
+    public Result deleteByIds(@RequestParam List<Long> ids){
+        log.info("批量删除id是：{}的套餐",ids);
+        setmealService.deleteByIds(ids);
+        return Result.success();
+    }
+
+    @PostMapping("/status/{status}")
+    @ApiOperation("套餐起售、停售")
+    public Result updateSetmealStatus(@PathVariable Integer status,@RequestParam Long id) {
+        setmealService.updateSetmealStatus(status,id);
+        return Result.success();
+    }
+
 
 
 
