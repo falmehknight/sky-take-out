@@ -12,6 +12,8 @@ import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
+import java.util.List;
+
 @Mapper
 public interface DishMapper {
 
@@ -75,4 +77,15 @@ public interface DishMapper {
      **/
     @AutoFill(value = OperationType.UPDATE)
     void update(Dish dish);
+
+    /**
+     *
+     * @Author TanYingHao
+     * @Description 根据categoryId查询菜品
+     * @Date 19:15 2023/8/27
+     * @Param [categoryId]
+     * @return java.util.List<com.sky.entity.Dish>
+     **/
+    @Select("select * from dish where category_id = #{categoryId}")
+    List<Dish> getByCategoryId(Long categoryId);
 }

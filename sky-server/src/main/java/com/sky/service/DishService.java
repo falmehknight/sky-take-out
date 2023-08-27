@@ -2,8 +2,10 @@ package com.sky.service;
 
 import com.sky.dto.DishDTO;
 import com.sky.dto.DishPageQueryDTO;
+import com.sky.entity.Dish;
 import com.sky.result.PageResult;
 import com.sky.vo.DishVO;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -30,4 +32,13 @@ public interface DishService {
      * @return void
      **/
     void updateWithStatus(Integer status, Long id);
+    /**
+     *
+     * @Author TanYingHao
+     * @Description 根据传入的分类id查询菜品
+     * @Date 19:13 2023/8/27
+     * @Param [categoryId]
+     * @return java.util.List<com.sky.entity.Dish>
+     **/
+    List<Dish> getByCateGoryId(Long categoryId);
 }
