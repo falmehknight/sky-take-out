@@ -9,6 +9,7 @@ import com.sky.dto.DishPageQueryDTO;
 import com.sky.entity.Dish;
 import com.sky.entity.DishFlavor;
 import com.sky.exception.DeletionNotAllowedException;
+import com.sky.exception.DishStopFailedException;
 import com.sky.mapper.DishFlavorMapper;
 import com.sky.mapper.DishMapper;
 import com.sky.mapper.SetmealDishMapper;
@@ -20,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -133,6 +135,22 @@ public class DishServiceImpl implements DishService {
             });
             dishFlavorMapper.insertBatch(flavors);
         }
+
+    }
+
+    @Override
+    public void updateWithStatus(Integer status, Long id) {
+        List<Long> setmealIdsByDishIds = setmealDishMapper.getSetmealIdsByDishIds(Collections.singletonList(id));
+        // 与套餐相关的餐品不能停售
+        if(setmealIdsByDishIds != null && setmealIdsByDishIds.size() > 0) {
+            throw new DishStopFailedException(MessageConstant.DISH_BE_STOPED_BY_SETMEAL);
+        }
+
+        Dish dish = Dish.builder()
+                .id(id)
+                .status(status)
+                .build();
+        dishMapper.update(dish);
 
     }
 

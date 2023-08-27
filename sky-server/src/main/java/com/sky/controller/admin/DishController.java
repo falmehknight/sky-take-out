@@ -70,4 +70,19 @@ public class DishController {
         return Result.success();
     }
 
+    /**
+     *
+     * @Author TanYingHao
+     * @Description 菜品起售，停售
+     * @Date 16:44 2023/8/27
+     * @Param [status, dishDTO]
+     * @return com.sky.result.Result
+     **/
+    @PostMapping("/status/{status}")
+    @ApiOperation("菜品起售、停售")
+    public Result updateDishStatus(@PathVariable Integer status, @RequestParam Long id) {
+        dishService.updateWithStatus(status,id);
+        return Result.success();
+    }
+
 }

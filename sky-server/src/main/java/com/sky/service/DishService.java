@@ -20,4 +20,14 @@ public interface DishService {
     DishVO getByIdWithFlavor(Long id);
 
     void updateWithFlavor(DishDTO dishDTO);
+
+    /**
+     *
+     * @Author TanYingHao
+     * @Description 根据传入的id以及status改变菜品的停售或者起售
+     * @Date 16:49 2023/8/27
+     * @Param [status, id]
+     * @return void
+     **/
+    void updateWithStatus(Integer status, Long id);
 }
