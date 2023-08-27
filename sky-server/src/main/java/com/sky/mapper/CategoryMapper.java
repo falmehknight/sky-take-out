@@ -8,6 +8,7 @@ import com.sky.enumeration.OperationType;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -65,4 +66,15 @@ public interface CategoryMapper {
      * @return java.util.List<com.sky.entity.Category>
      **/
     List<Category> list(Integer type);
+
+    /**
+     *
+     * @Author TanYingHao
+     * @Description 根据id查询到套餐的name
+     * @Date 19:46 2023/8/27
+     * @Param [categoryId]
+     * @return void
+     **/
+    @Select("select name from category where id = #{categoryId}")
+    String getNameById(Long categoryId);
 }
