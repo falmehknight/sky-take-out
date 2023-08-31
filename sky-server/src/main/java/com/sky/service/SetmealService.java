@@ -2,7 +2,9 @@ package com.sky.service;
 
 import com.sky.dto.SetmealDTO;
 import com.sky.dto.SetmealPageQueryDTO;
+import com.sky.entity.Setmeal;
 import com.sky.result.PageResult;
+import com.sky.vo.DishItemVO;
 import com.sky.vo.SetmealVO;
 
 import java.util.List;
@@ -63,4 +65,25 @@ public interface SetmealService {
      * @return void
      **/
     void updateSetmealStatus(Integer status, Long id);
+
+
+   /**
+    *
+    * @Author TanYingHao
+    * @Description 条件查询
+    * @Date 20:17 2023/8/30
+    * @Param [setmeal]
+    * @return java.util.List<Setmeal>
+    **/
+    List<Setmeal> list(Setmeal setmeal);
+
+  /**
+   *
+   * @Author TanYingHao
+   * @Description 根据id查询菜品选项
+   * @Date 20:17 2023/8/30
+   * @Param [id]
+   * @return java.util.List<com.sky.vo.DishItemVO>
+   **/
+    List<DishItemVO> getDishItemById(Long id);
 }
