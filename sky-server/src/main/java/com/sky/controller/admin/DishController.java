@@ -11,9 +11,11 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @ClassName DishController
@@ -30,12 +32,16 @@ public class DishController {
 
     @Autowired
     private DishService dishService;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @PostMapping
     @ApiOperation("新增菜品")
     public Result save(@RequestBody DishDTO dishDTO) {
         log.info("新增菜品：{}",dishDTO);
         dishService.saveWithFlavors(dishDTO);
+        String s = "dish_" + dishDTO.getCategoryId();
+        deleteCache(s);
         return Result.success();
     }
 
@@ -52,6 +58,7 @@ public class DishController {
     public Result delete(@RequestParam List<Long> ids) {
         log.info("删除菜品：{}",ids);
         dishService.deleteBatch(ids);
+        deleteCache("dish_*");
         return Result.success();
     }
 
@@ -68,6 +75,7 @@ public class DishController {
     public Result update(@RequestBody DishDTO dishDTO) {
         log.info("修改菜品,{}",dishDTO);
         dishService.updateWithFlavor(dishDTO);
+        deleteCache("dish_*");
         return Result.success();
     }
 
@@ -83,13 +91,14 @@ public class DishController {
     @ApiOperation("菜品起售、停售")
     public Result updateDishStatus(@PathVariable Integer status, @RequestParam Long id) {
         dishService.updateWithStatus(status,id);
+        deleteCache("dish_*");
         return Result.success();
     }
 
     /**
      *
      * @Author TanYingHao
-     * @Description TODO
+     * @Description 根据分类id查询菜品
      * @Date 19:06 2023/8/27
      * @Param []
      * @return com.sky.result.Result<Dish>
@@ -99,6 +108,11 @@ public class DishController {
     public Result<List<Dish>> getByCategoryId(@RequestParam Long categoryId) {
          List<Dish> list = dishService.getByCateGoryId(categoryId);
          return Result.success(list);
+    }
+    
+    private void deleteCache(String pattern) {
+        Set keys = redisTemplate.keys(pattern);
+        redisTemplate.delete(keys);
     }
 
 }
