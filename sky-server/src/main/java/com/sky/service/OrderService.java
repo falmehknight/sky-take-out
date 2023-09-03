@@ -1,9 +1,6 @@
 package com.sky.service;
 
-import com.sky.dto.OrdersConfirmDTO;
-import com.sky.dto.OrdersPageQueryDTO;
-import com.sky.dto.OrdersPaymentDTO;
-import com.sky.dto.OrdersSubmitDTO;
+import com.sky.dto.*;
 import com.sky.result.PageResult;
 import com.sky.vo.OrderPaymentVO;
 import com.sky.vo.OrderStatisticsVO;
@@ -100,4 +97,40 @@ public interface OrderService {
      * @return void
      **/
     void confirmOrder(OrdersConfirmDTO ordersConfirmDTO);
+    /**
+     *
+     * @Author TanYingHao
+     * @Description 拒单
+     * @Date 20:44 2023/9/3
+     * @Param [ordersCancelDTO]
+     * @return void
+     **/
+    void rejectOrder(OrdersCancelDTO ordersCancelDTO) throws Exception;
+    /**
+     *
+     * @Author TanYingHao
+     * @Description 取消订单
+     * @Date 20:50 2023/9/3
+     * @Param [ordersCancelDTO]
+     * @return void
+     **/
+    void cancel(OrdersCancelDTO ordersCancelDTO) throws Exception;
+    /**
+     *
+     * @Author TanYingHao
+     * @Description 订单派送
+     * @Date 20:52 2023/9/3
+     * @Param [id]
+     * @return void
+     **/
+    void delivery(Long id);
+    /**
+     *
+     * @Author TanYingHao
+     * @Description 完成订单
+     * @Date 20:53 2023/9/3
+     * @Param [id]
+     * @return void
+     **/
+    void complete(Long id);
 }
