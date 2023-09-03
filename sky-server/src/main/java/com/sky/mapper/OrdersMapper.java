@@ -40,4 +40,14 @@ public interface OrdersMapper {
      * @return com.github.pagehelper.Page<com.sky.entity.Orders>
      **/
     Page<Orders> pageQuery(OrdersPageQueryDTO ordersPageQueryDTO);
+    /**
+     *
+     * @Author TanYingHao
+     * @Description 根据订单id查询订单
+     * @Date 17:40 2023/9/3
+     * @Param [id]
+     * @return com.sky.entity.Orders
+     **/
+    @Select("select * from orders where id = #{id}")
+    Orders getByOrderId(Long id);
 }

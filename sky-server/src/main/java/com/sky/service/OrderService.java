@@ -5,6 +5,7 @@ import com.sky.dto.OrdersSubmitDTO;
 import com.sky.result.PageResult;
 import com.sky.vo.OrderPaymentVO;
 import com.sky.vo.OrderSubmitVO;
+import com.sky.vo.OrderVO;
 
 public interface OrderService {
 
@@ -40,4 +41,23 @@ public interface OrderService {
      * @return com.sky.result.PageResult
      **/
     PageResult pageQuery4User(int page, int pageSize, Integer status);
+
+    /**
+     *
+     * @Author TanYingHao
+     * @Description 根据订单id查询详细信息
+     * @Date 17:38 2023/9/3
+     * @Param [id]
+     * @return com.sky.vo.OrderVO
+     **/
+    OrderVO queryOrderDetails(Long id);
+    /**
+     *
+     * @Author TanYingHao
+     * @Description 根据订单id取消订单
+     * @Date 17:47 2023/9/3
+     * @Param [id]
+     * @return void
+     **/
+    void cancelOrder(Long id) throws Exception;
 }
