@@ -2,6 +2,7 @@ package com.sky.service;
 
 import com.sky.dto.OrdersPaymentDTO;
 import com.sky.dto.OrdersSubmitDTO;
+import com.sky.result.PageResult;
 import com.sky.vo.OrderPaymentVO;
 import com.sky.vo.OrderSubmitVO;
 
@@ -29,4 +30,14 @@ public interface OrderService {
      * @param outTradeNo
      */
     void paySuccess(String outTradeNo);
+
+    /**
+     *
+     * @Author TanYingHao
+     * @Description 为用户查询特定的分页
+     * @Date 16:54 2023/9/3
+     * @Param [page, pageSize, status]
+     * @return com.sky.result.PageResult
+     **/
+    PageResult pageQuery4User(int page, int pageSize, Integer status);
 }
