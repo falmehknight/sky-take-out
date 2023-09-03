@@ -50,4 +50,14 @@ public interface OrdersMapper {
      **/
     @Select("select * from orders where id = #{id}")
     Orders getByOrderId(Long id);
+    /**
+     *
+     * @Author TanYingHao
+     * @Description 查询给定状态的订单数
+     * @Date 20:21 2023/9/3
+     * @Param [toBeConfirmed]
+     * @return java.lang.Integer
+     **/
+    @Select("select count(id) from orders where status = #{status}")
+    Integer countStatus(Integer status);
 }

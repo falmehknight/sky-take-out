@@ -1,9 +1,11 @@
 package com.sky.service;
 
+import com.sky.dto.OrdersPageQueryDTO;
 import com.sky.dto.OrdersPaymentDTO;
 import com.sky.dto.OrdersSubmitDTO;
 import com.sky.result.PageResult;
 import com.sky.vo.OrderPaymentVO;
+import com.sky.vo.OrderStatisticsVO;
 import com.sky.vo.OrderSubmitVO;
 import com.sky.vo.OrderVO;
 
@@ -69,4 +71,23 @@ public interface OrderService {
      * @return void
      **/
     void repetitionOrder(Long id);
+
+    /**
+     *
+     * @Author TanYingHao
+     * @Description 管理端订单搜索
+     * @Date 19:55 2023/9/3
+     * @Param [ordersPageQueryDTO]
+     * @return com.sky.result.PageResult
+     **/
+    PageResult conditionOrderSearch4Admin(OrdersPageQueryDTO ordersPageQueryDTO);
+    /**
+     *
+     * @Author TanYingHao
+     * @Description 各个状态的订单数量统计
+     * @Date 20:18 2023/9/3
+     * @Param []
+     * @return com.sky.vo.OrderStatisticsVO
+     **/
+    OrderStatisticsVO showStatistic();
 }

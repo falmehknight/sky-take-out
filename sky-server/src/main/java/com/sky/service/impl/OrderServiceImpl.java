@@ -17,6 +17,7 @@ import com.sky.result.PageResult;
 import com.sky.service.OrderService;
 import com.sky.utils.WeChatPayUtil;
 import com.sky.vo.OrderPaymentVO;
+import com.sky.vo.OrderStatisticsVO;
 import com.sky.vo.OrderSubmitVO;
 import com.sky.vo.OrderVO;
 import org.springframework.beans.BeanUtils;
@@ -241,6 +242,57 @@ public class OrderServiceImpl implements OrderService {
         // 将购物车对象批量加入到数据库中
         shoppingCartMapper.insertBatch(shoppingCartList);
 
+    }
+
+    @Override
+    @Transactional
+    public PageResult conditionOrderSearch4Admin(OrdersPageQueryDTO ordersPageQueryDTO) {
+        // 设置分页
+        PageHelper.startPage(ordersPageQueryDTO.getPage(),ordersPageQueryDTO.getPageSize());
+        Page<Orders> orders = ordersMapper.pageQuery(ordersPageQueryDTO);
+        List<Orders> ordersList = orders.getResult();
+        List<OrderVO> orderVOList = ordersList.stream().map(x ->{
+            OrderVO orderVO = new OrderVO();
+            BeanUtils.copyProperties(x,orderVO);
+            // vo里面的那个string就是为了管理端看的，另一个list是客户端看的
+            orderVO.setOrderDishes(getOrderDishesStr(x));
+            return orderVO;
+        }).collect(Collectors.toList());
+
+        return new PageResult(orders.getTotal(),orderVOList);
+    }
+
+    @Override
+    public OrderStatisticsVO showStatistic() {
+        OrderStatisticsVO orderStatisticsVO = new OrderStatisticsVO();
+        Integer toBeConfirmed = ordersMapper.countStatus(Orders.TO_BE_CONFIRMED);
+        Integer confirmed = ordersMapper.countStatus(Orders.CONFIRMED);
+        Integer deliveryInProgress = ordersMapper.countStatus(Orders.DELIVERY_IN_PROGRESS);
+
+        orderStatisticsVO.setConfirmed(confirmed);
+        orderStatisticsVO.setToBeConfirmed(toBeConfirmed);
+        orderStatisticsVO.setDeliveryInProgress(deliveryInProgress);
+        return orderStatisticsVO;
+    }
+
+    /**
+     * 根据订单id获取菜品信息字符串
+     *
+     * @param orders
+     * @return
+     */
+    private String getOrderDishesStr(Orders orders) {
+        // 查询订单菜品详情信息（订单中的菜品和数量）
+        List<OrderDetail> orderDetailList = orderDetailMapper.getByOrderId(orders.getId());
+
+        // 将每一条订单菜品信息拼接为字符串（格式：宫保鸡丁*3；）
+        List<String> orderDishList = orderDetailList.stream().map(x -> {
+            String orderDish = x.getName() + "*" + x.getNumber() + ";";
+            return orderDish;
+        }).collect(Collectors.toList());
+
+        // 将该订单对应的所有菜品信息拼接在一起
+        return String.join("", orderDishList);
     }
 
 
