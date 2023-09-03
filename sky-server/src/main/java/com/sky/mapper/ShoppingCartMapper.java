@@ -52,4 +52,13 @@ public interface ShoppingCartMapper {
      * @return void
      **/
     void delete(ShoppingCart shoppingCart);
+    /**
+     *
+     * @Author TanYingHao
+     * @Description 批量插入购物车
+     * @Date 18:43 2023/9/3
+     * @Param [shoppingCartList]
+     * @return void
+     **/
+    void insertBatch(List<ShoppingCart> shoppingCartList);
 }

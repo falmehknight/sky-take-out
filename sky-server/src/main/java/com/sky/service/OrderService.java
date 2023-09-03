@@ -60,4 +60,13 @@ public interface OrderService {
      * @return void
      **/
     void cancelOrder(Long id) throws Exception;
+    /**
+     *
+     * @Author TanYingHao
+     * @Description 再来一单
+     * @Date 18:06 2023/9/3
+     * @Param [id]
+     * @return void
+     **/
+    void repetitionOrder(Long id);
 }
