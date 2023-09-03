@@ -1,6 +1,7 @@
 package com.sky.controller.admin;
 
 import com.github.pagehelper.PageHelper;
+import com.sky.dto.OrdersCancelDTO;
 import com.sky.dto.OrdersConfirmDTO;
 import com.sky.dto.OrdersPageQueryDTO;
 import com.sky.result.PageResult;
@@ -85,6 +86,63 @@ public class OrderController {
     @ApiOperation("接单")
     public Result confirmOrder(@RequestBody OrdersConfirmDTO confirmDTO) {
         orderService.confirmOrder(confirmDTO);
+        return Result.success();
+    }
+
+    /**
+     *
+     * @Author TanYingHao
+     * @Description 拒单
+     * @Date 20:43 2023/9/3
+     * @Param [ordersCancelDTO]
+     * @return com.sky.result.Result
+     **/
+    @PutMapping("/rejection")
+    @ApiOperation("拒单")
+    public Result rejectOrder(@RequestBody OrdersCancelDTO ordersCancelDTO) throws Exception {
+        orderService.rejectOrder(ordersCancelDTO);
+        return Result.success();
+    }
+    /**
+     *
+     * @Author TanYingHao
+     * @Description 取消订单
+     * @Date 20:50 2023/9/3
+     * @Param [ordersCancelDTO]
+     * @return com.sky.result.Result
+     **/
+    @PutMapping("/cancel")
+    @ApiOperation("取消订单")
+    public Result cancel(@RequestBody OrdersCancelDTO ordersCancelDTO) throws Exception {
+        orderService.cancel(ordersCancelDTO);
+        return Result.success();
+    }
+    /**
+     *
+     * @Author TanYingHao
+     * @Description 派送订单
+     * @Date 20:52 2023/9/3
+     * @Param [id]
+     * @return com.sky.result.Result
+     **/
+    @PutMapping("/delivery/{id}")
+    @ApiOperation("派送订单")
+    public Result delivery(@PathVariable("id") Long id) {
+        orderService.delivery(id);
+        return Result.success();
+    }
+    /**
+     *
+     * @Author TanYingHao
+     * @Description 完成订单
+     * @Date 20:53 2023/9/3
+     * @Param [id]
+     * @return com.sky.result.Result
+     **/
+    @PutMapping("/complete/{id}")
+    @ApiOperation("完成订单")
+    public Result complete(@PathVariable("id") Long id) {
+        orderService.complete(id);
         return Result.success();
     }
 
