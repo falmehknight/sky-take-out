@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
-@RestController
+@RestController("userAddressBookController")
 @RequestMapping("/user/addressBook")
 @Api(tags = "C端地址簿接口")
 public class AddressBookController {
