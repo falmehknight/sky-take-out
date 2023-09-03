@@ -1,5 +1,6 @@
 package com.sky.service;
 
+import com.sky.dto.OrdersConfirmDTO;
 import com.sky.dto.OrdersPageQueryDTO;
 import com.sky.dto.OrdersPaymentDTO;
 import com.sky.dto.OrdersSubmitDTO;
@@ -90,4 +91,13 @@ public interface OrderService {
      * @return com.sky.vo.OrderStatisticsVO
      **/
     OrderStatisticsVO showStatistic();
+    /**
+     *
+     * @Author TanYingHao
+     * @Description 接单，更改订单状态
+     * @Date 20:36 2023/9/3
+     * @Param [OrdersConfirmDTO]
+     * @return void
+     **/
+    void confirmOrder(OrdersConfirmDTO ordersConfirmDTO);
 }
