@@ -6,6 +6,9 @@ import com.sky.entity.Orders;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 @Mapper
 public interface OrdersMapper {
     /**
@@ -60,4 +63,14 @@ public interface OrdersMapper {
      **/
     @Select("select count(id) from orders where status = #{status}")
     Integer countStatus(Integer status);
+    /**
+     *
+     * @Author TanYingHao
+     * @Description 根据订单状态以及时间
+     * @Date 19:07 2023/9/4
+     * @Param [unPaid, minutes]
+     * @return java.util.List<com.sky.entity.Orders>
+     **/
+    @Select("select * from orders where status = #{unPaid} and order_time = #{time}")
+    List<Orders> getByStatusAndOrderTime(Integer unPaid, LocalDateTime time);
 }
