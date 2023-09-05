@@ -133,4 +133,14 @@ public interface OrderService {
      * @return void
      **/
     void complete(Long id);
+
+    /**
+     *
+     * @Author TanYingHao
+     * @Description 客户催单
+     * @Date 21:46 2023/9/5
+     * @Param [id]
+     * @return void
+     **/
+    void reminder(Long id);
 }

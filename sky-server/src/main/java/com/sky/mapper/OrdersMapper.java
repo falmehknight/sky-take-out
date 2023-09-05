@@ -71,6 +71,6 @@ public interface OrdersMapper {
      * @Param [unPaid, minutes]
      * @return java.util.List<com.sky.entity.Orders>
      **/
-    @Select("select * from orders where status = #{unPaid} and order_time = #{time}")
+    @Select("select * from orders where status = #{unPaid} and order_time < #{time}")
     List<Orders> getByStatusAndOrderTime(Integer unPaid, LocalDateTime time);
 }
