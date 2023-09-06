@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Select;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface OrdersMapper {
@@ -73,4 +74,13 @@ public interface OrdersMapper {
      **/
     @Select("select * from orders where status = #{unPaid} and order_time < #{time}")
     List<Orders> getByStatusAndOrderTime(Integer unPaid, LocalDateTime time);
+    /**
+     *
+     * @Author TanYingHao
+     * @Description 根据传入的起始时间以及状态查询总和营业额
+     * @Date 19:11 2023/9/6
+     * @Param [map]
+     * @return java.lang.Double
+     **/
+    Double sumTurnOverByMap(Map map);
 }
