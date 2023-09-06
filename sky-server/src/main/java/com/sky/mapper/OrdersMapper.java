@@ -83,4 +83,13 @@ public interface OrdersMapper {
      * @return java.lang.Double
      **/
     Double sumTurnOverByMap(Map map);
+    /**
+     *
+     * @Author TanYingHao
+     * @Description 根据map中传入的起始时间以及状态查询符合要求的订单总数
+     * @Date 21:54 2023/9/6
+     * @Param [map]
+     * @return java.lang.Integer
+     **/
+    Integer getOrderCntByMap(Map map);
 }
