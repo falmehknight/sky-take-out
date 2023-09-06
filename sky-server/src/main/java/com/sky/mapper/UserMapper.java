@@ -5,6 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.Map;
+
 @Mapper
 public interface UserMapper {
 
@@ -38,4 +40,13 @@ public interface UserMapper {
      **/
     @Select("select * from user where id = #{userId}")
     User getById(Long userId);
+    /**
+     *
+     * @Author TanYingHao
+     * @Description 根据传入的beginTime和endTime查询当前的用户
+     * @Date 19:52 2023/9/6
+     * @Param [map]
+     * @return Integer
+     **/
+    Integer countByMap(Map map);
 }
