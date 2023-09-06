@@ -1,9 +1,11 @@
 package com.sky.mapper;
 
+import com.sky.dto.GoodsSalesDTO;
 import com.sky.entity.OrderDetail;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -36,4 +38,13 @@ public interface OrderDetailMapper {
      **/
     @Select("select * from order_detail where order_id = #{orderId}")
     List<OrderDetail> getByOrderId(Long orderId);
+    /**
+     *
+     * @Author TanYingHao
+     * @Description 根据传入的时间查询top10的菜品名字以及销量
+     * @Date 23:55 2023/9/6
+     * @Param [beginTime, endTime]
+     * @return java.util.List<com.sky.dto.GoodsSalesDTO>
+     **/
+    List<GoodsSalesDTO> getGoodsSalesDTOListByTime(LocalDateTime begin, LocalDateTime end);
 }
