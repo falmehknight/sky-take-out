@@ -5,6 +5,7 @@ import com.sky.vo.SalesTop10ReportVO;
 import com.sky.vo.TurnoverReportVO;
 import com.sky.vo.UserReportVO;
 
+import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
 
 public interface ReportService {
@@ -45,4 +46,14 @@ public interface ReportService {
      * @return com.sky.vo.SalesTop10ReportVO
      **/
     SalesTop10ReportVO getTop10(LocalDate begin, LocalDate end);
+
+    /**
+     *
+     * @Author TanYingHao
+     * @Description 导出运营数据报表
+     * @Date 14:55 2023/9/10
+     * @Param [response]
+     * @return void
+     **/
+    void exportBusinessData(HttpServletResponse response);
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
 
 /**
@@ -87,6 +88,20 @@ public class ReportController {
                                             @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate end) {
         log.info("进入查询销量排名top10接口，开始时间:{}，结束时间:{}",begin,end);
         return Result.success(reportService.getTop10(begin,end));
+    }
+
+    /**
+     *
+     * @Author TanYingHao
+     * @Description 导出运行数据报表
+     * @Date 14:55 2023/9/10
+     * @Param [response]
+     * @return void
+     **/
+    @ApiOperation("导出运营数据报表")
+    @GetMapping("export")
+    public void export(HttpServletResponse response) {
+        reportService.exportBusinessData(response);
     }
 
 }
